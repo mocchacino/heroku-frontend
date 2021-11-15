@@ -23,7 +23,7 @@ jobs:
           node-version: ${{matrix.node-version}}
 
       - name: Add remote to Heroku
-        run: git remote add heroku https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/${{secrets.HEROKU_APP_NAME}}
+        run: git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME}}.git
 
       # Deploy to Heroku
       - name: Filter shallow
