@@ -1,14 +1,18 @@
 name: Frontend
 
-on: push
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  strategy:
-    matrix:
-      node-version: [14]
-
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,8 +25,8 @@ jobs:
       - name: Add remote to Heroku
         run: git remote add heroku https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/${{secrets.HEROKU_APP_NAME}}
 
+      # Deploy to Heroku
       - name: Filter shallow
         run: git filter-branch -- --all
-
-      - name: Deploy heroku
+      - name: Deploy to Heroku
         run: git push heroku main --force
